@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://backend.aniket-palarapu15.workers.dev"
