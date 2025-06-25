@@ -29,6 +29,7 @@ export default function Auth({ type }: { type: "signup" | "signin" }) {
 
 			const jwt = res.data.jwt;
 			localStorage.setItem("token", jwt);
+            window.dispatchEvent(new Event("storage"));
 			if (res.status === 200) {
 				const successMessage =
 					type === "signin"
