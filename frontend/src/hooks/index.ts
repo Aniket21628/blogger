@@ -128,17 +128,55 @@ export function useUserDetails(token: any): any {
 	return JSON.parse(jsonPayload);
 }
 
-export async function useRandomQuote() {
-	try {
-		const response = await axios.get("https://type.fit/api/quotes");
-		const quotes = response.data;
+export interface Quote {
+	text: string;
+	author: string;
+}
 
-		const randomIndex = Math.floor(Math.random() * quotes.length);
-		const randomQuote = quotes[randomIndex];
+const quotes: Quote[] = [
+	{
+		text: "The only way to do great work is to love what you do.",
+		author: "Steve Jobs",
+	},
+	{
+		text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+		author: "Winston Churchill",
+	},
+	{
+		text: "Believe you can and you're halfway there.",
+		author: "Theodore Roosevelt",
+	},
+	{
+		text: "It always seems impossible until it’s done.",
+		author: "Nelson Mandela",
+	},
+	{
+		text: "Happiness is not something ready made. It comes from your own actions.",
+		author: "Dalai Lama",
+	},
+	{
+		text: "If you want to lift yourself up, lift up someone else.",
+		author: "Booker T. Washington",
+	},
+	{
+		text: "Don't watch the clock; do what it does. Keep going.",
+		author: "Sam Levenson",
+	},
+	{
+		text: "Do not wait to strike till the iron is hot, but make it hot by striking.",
+		author: "William Butler Yeats",
+	},
+	{
+		text: "Strive not to be a success, but rather to be of value.",
+		author: "Albert Einstein",
+	},
+	{
+		text: "Dream big and dare to fail.",
+		author: "Norman Vaughan",
+	},
+];
 
-		return randomQuote;
-	} catch (error) {
-		console.error("Error fetching random quote:", error);
-		return null;
-	}
+export function useRandomQuote(): Quote {
+	const randomIndex = Math.floor(Math.random() * quotes.length);
+	return quotes[randomIndex];
 }

@@ -1,36 +1,22 @@
 import { useEffect, useState } from "react";
-import { useRandomQuote } from "../hooks";
-interface Quote {
-	text: string;
-	author: string;
-}
+import { useRandomQuote, Quote as QuoteType } from "../hooks";
 
 export default function Quote() {
-	const [quote, setQuote] = useState<Quote>();
+	const [quote, setQuote] = useState<QuoteType>();
 
 	useEffect(() => {
-		const fetchQuote = async () => {
-			try {
-				const randomQuote = await useRandomQuote();
-				setQuote(randomQuote);
-			} catch (error) {
-				console.error("Error fetching quote:", error);
-			}
-		};
-
-		fetchQuote();
+		const selected = useRandomQuote();
+		setQuote(selected);
 	}, []);
+
 	return (
 		<div className="flex items-center justify-center h-screen text-3xl font-extrabold bg-slate-200">
-			<div className="w-3/4">
+			<div className="w-3/4 text-center">
 				{quote ? (
 					<>
 						<div>"{quote.text}"</div>
-						<div className="mt-4 text-2xl font-semibold">
-							{quote.author.substring(
-								0,
-								quote.author.indexOf(",")
-							)}
+						<div className="mt-4 text-2xl font-semibold text-gray-700">
+							— {quote.author}
 						</div>
 					</>
 				) : (

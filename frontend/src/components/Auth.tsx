@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../config";
 import TitleAuth from "./AuthHeader";
 import LabelInput from "./LabelInput";
 import { toast, Toaster } from "sonner";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 
 export default function Auth({ type }: { type: "signup" | "signin" }) {
 	const [postInputs, setPostInputs] = useState<SignupType>({
