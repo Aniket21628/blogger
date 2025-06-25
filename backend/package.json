@@ -10,10 +10,12 @@
     "@prisma/extension-accelerate": "^1.2.1",
     "cors": "^2.8.5",
     "hono": "^4.5.8",
+    "moment-timezone": "^0.6.0",
     "prisma": "^5.20.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/moment-timezone": "^0.5.13",
     "wrangler": "^2.21.1"
   }
 }
