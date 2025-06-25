@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Blog from "./pages/Blog";
@@ -9,54 +10,39 @@ import UserBlogs from "./pages/UserBlogs";
 import Settings from "./components/Settings";
 
 function App() {
-	const isLoggedIn =
-		localStorage.token !== undefined && localStorage.token !== "";
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		localStorage.getItem("token") !== null
+	);
+
+	useEffect(() => {
+		const checkLogin = () => {
+			setIsLoggedIn(localStorage.getItem("token") !== null);
+		};
+
+		window.addEventListener("storage", checkLogin);
+		return () => window.removeEventListener("storage", checkLogin);
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<Routes>
 				{!isLoggedIn ? (
 					<>
-						<Route
-							path="/signup"
-							element={<Signup></Signup>}></Route>
-						<Route
-							path="/signin"
-							element={<Signin></Signin>}></Route>
-						<Route
-							path="*"
-							element={<Navigate to="/signin" />}
-						/>
+						<Route path="/signup" element={<Signup />} />
+						<Route path="/signin" element={<Signin />} />
+						<Route path="*" element={<Navigate to="/signin" />} />
 					</>
 				) : (
 					<>
-						<Route
-							path="/"
-							element={<Blogs></Blogs>}></Route>
-						<Route
-							path="/blogs"
-							element={<Blogs></Blogs>}></Route>
-						<Route
-							path="/settings"
-							element={<Settings></Settings>}></Route>
-						<Route
-							path="/write"
-							element={<Editor edit={false}></Editor>}></Route>
-						<Route
-							path="/your-blogs"
-							element={<UserBlogs></UserBlogs>}></Route>
-						<Route
-							path="/edit/:id"
-							element={<Editor edit={true}></Editor>}></Route>
-						<Route
-							path="/blog/:id"
-							element={<Blog></Blog>}></Route>
-						<Route
-							path="/user/:id"
-							element={<User></User>}></Route>
-						<Route
-							path="*"
-							element={<Navigate to="/blogs" />}
-						/>
+						<Route path="/" element={<Blogs />} />
+						<Route path="/blogs" element={<Blogs />} />
+						<Route path="/settings" element={<Settings />} />
+						<Route path="/write" element={<Editor edit={false} />} />
+						<Route path="/your-blogs" element={<UserBlogs />} />
+						<Route path="/edit/:id" element={<Editor edit={true} />} />
+						<Route path="/blog/:id" element={<Blog />} />
+						<Route path="/user/:id" element={<User />} />
+						<Route path="*" element={<Navigate to="/blogs" />} />
 					</>
 				)}
 			</Routes>
