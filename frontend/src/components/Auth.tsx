@@ -5,9 +5,11 @@ import { BACKEND_URL } from "../config";
 import TitleAuth from "./AuthHeader";
 import LabelInput from "./LabelInput";
 import { toast, Toaster } from "sonner";
-import { ImSpinner2 } from "react-icons/im"; // spinner icon
+import { ImSpinner2 } from "react-icons/im"; 
+import { useNavigate } from "react-router-dom"; 
 
 export default function Auth({ type }: { type: "signup" | "signin" }) {
+    const navigate = useNavigate();
 	const [postInputs, setPostInputs] = useState<SignupType>({
 		name: "",
 		email: "",
@@ -33,8 +35,9 @@ export default function Auth({ type }: { type: "signup" | "signin" }) {
 						? "Login Successful"
 						: "Signup Successful";
 				toast.success(successMessage);
+
 				setTimeout(() => {
-					window.location.reload();
+					navigate("/blogs"); 
 				}, 1000);
 			}
 		} catch (error: any) {
